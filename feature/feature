@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+"""Simple CLI: greet, reverse text, or count words."""
+
+import argparse
+
+def main():
+    p = argparse.ArgumentParser(description="Simple py code")
+    p.add_argument("-n", "--name", help="Name to greet")
+    p.add_argument("-r", "--reverse", action="store_true", help="Reverse the output")
+    p.add_argument("-c", "--count", action="store_true", help="Count words in input")
+    p.add_argument("text", nargs="*", help="Text to process")
+    args = p.parse_args()
+
+    text = " ".join(args.text).strip()
+    if args.count:
+        print(len(text.split()) if text else 0)
+        return
+
+    if args.name:
+        out = f"Hello, {args.name}!"
+    elif text:
+        out = text
+    else:
+        out = "Hello, world!"
+
+    if args.reverse:
+        out = out[::-1]
+
+    print(out)
+
+if __name__ == "__main__":
+    main()
